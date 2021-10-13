@@ -1,0 +1,35 @@
+.accounts {
+  padding: 1rem;
+  background-color: #457b9d;
+  margin: 2rem auto;
+  width: 50rem;
+  max-width: 95%;
+}
+
+.accounts button {
+  font: inherit;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  border: 1px solid #023e8a;
+  background-color: #023e8a;
+  color: white;
+  border-radius: 12px;
+  margin-right: 1rem;
+}
+
+.accounts button:hover,
+.accounts button:active {
+  background-color: #0077b6;
+  border-color: #0077b6;
+}
+
+.accounts button.alternative {
+  color: #03045e;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.accounts button.alternative:hover,
+.accounts button.alternative:active {
+  background-color: #ddb3f8;
+}
