@@ -2,11 +2,11 @@ import React from "react";
 
 import AccountInfo from "./AccountInfo";
 
-import "./AccountList.css";
+import classes from "./AccountList.module.css";
 
 function AccountList(props) {
   return (
-    <div className="accounts-list">
+    <div className={classes["accounts-list"]}>
       {props.accounts.map((info) => (
         <AccountInfo
           key={info.id}

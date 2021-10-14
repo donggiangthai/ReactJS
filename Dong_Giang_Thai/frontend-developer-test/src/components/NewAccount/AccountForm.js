@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import ModifyContext from "../../context/modify-context";
 
-import "./AccountForm.css";
+import classes from "./AccountForm.module.css";
 
-function AccountForm(props) {
+function AccountForm() {
   const [enterdName, setEnterdName] = useState("");
   const [enterdWallet, setEnterdWallet] = useState("");
   const [enterdEmail, setEnterdEmail] = useState("");
+
+  const ctx = useContext(ModifyContext);
 
   const nameChangeHandler = (event) => {
     setEnterdName(event.target.value);
@@ -24,8 +27,10 @@ function AccountForm(props) {
       name: enterdName,
       walletAddress: enterdWallet,
       email: enterdEmail,
+      id: Math.random().toString(),
     };
-    props.onSaveAccount(accountData);
+    ctx.onAddAccount(accountData);
+    // props.onSaveAccount(accountData);
 
     setEnterdName("");
     setEnterdWallet("");
@@ -34,8 +39,8 @@ function AccountForm(props) {
 
   return (
     <form onSubmit={submitHandler}>
-      <div className="new-account__controls">
-        <div className="new-account__control">
+      <div className={classes["new-account__controls"]}>
+        <div className={classes["new-account__control"]}>
           <input
             type="text"
             placeholder="Name"
@@ -43,7 +48,7 @@ function AccountForm(props) {
             onChange={nameChangeHandler}
           ></input>
         </div>
-        <div className="new-account__control">
+        <div className={classes["new-account__control"]}>
           <input
             type="text"
             placeholder="Wallet Address"
@@ -51,7 +56,7 @@ function AccountForm(props) {
             onChange={walletChangeHandler}
           ></input>
         </div>
-        <div className="new-account__control">
+        <div className={classes["new-account__control"]}>
           <input
             type="text"
             placeholder="Email"
@@ -60,7 +65,7 @@ function AccountForm(props) {
           ></input>
         </div>
       </div>
-      <div className="new-account__actions">
+      <div className={classes["new-account__actions"]}>
         <button type="submit">Add Account</button>
       </div>
     </form>

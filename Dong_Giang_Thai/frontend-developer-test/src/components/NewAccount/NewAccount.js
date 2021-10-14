@@ -1,20 +1,12 @@
 import React from "react";
 
-import "./NewAccount.css";
+import classes from "./NewAccount.module.css";
 import AccountForm from "./AccountForm";
 
-function NewAccount(props) {
-  const saveAccountHandler = (enteredAccountData) => {
-    const accountData = {
-      ...enteredAccountData,
-      id: Math.random().toString(),
-    };
-    props.onAddAccount(accountData);
-  };
-
+function NewAccount() {
   return (
-    <div className="new-account">
-      <AccountForm onSaveAccount={saveAccountHandler} />
+    <div className={classes["new-account"]}>
+      <AccountForm />
     </div>
   );
 }

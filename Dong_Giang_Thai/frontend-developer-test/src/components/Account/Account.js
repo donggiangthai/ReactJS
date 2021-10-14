@@ -1,13 +1,16 @@
-import React from "react";
-import Card from "../UI/Card";
+import React, { useContext } from "react";
+import Card from "../UI/Card/Card";
 import AccountList from "./AccountList";
 
-import "./Account.css";
+import classes from "./Account.module.css";
+import ModifyContext from "../../context/modify-context";
 
-const Account = (props) => {
+const Account = () => {
+  const ctx = useContext(ModifyContext);
+
   return (
-    <Card className="accounts">
-      <AccountList accounts={props.items} />
+    <Card className={classes["accounts"]}>
+      <AccountList accounts={ctx.accounts} />
     </Card>
   );
 };

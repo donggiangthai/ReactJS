@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
-import Card from "../UI/Card";
-import "./AccountInfo.css";
+import Card from "../UI/Card/Card";
+import Button from "../UI/Button/Button";
+import classes from "./AccountInfo.module.css";
+import ModifyContext from "../../context/modify-context";
 
-let tempname, tempwallet, tempemail;
-
-function AccountInfo(props) {
+const AccountInfo = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [enterdName, setEnterdName] = useState(props.name);
+  const [tempName, setTempName] = useState(enterdName);
   const [enterdWallet, setEnterdWallet] = useState(props.walletAddress);
+  const [tempWallet, setTempWallet] = useState(enterdWallet);
   const [enterdEmail, setEnterdEmail] = useState(props.email);
-
-  tempname = enterdName;
-  tempwallet = enterdWallet;
-  tempemail = enterdEmail;
+  const [tempEmail, setTempEmail] = useState(enterdEmail);
 
   const nameChangeHandler = (event) => {
     setEnterdName(event.target.value);
@@ -30,60 +29,58 @@ function AccountInfo(props) {
   };
 
   const cancelHandler = () => {
-    setEnterdName(tempname);
-    setEnterdWallet(tempwallet);
-    setEnterdEmail(tempemail);
+    setEnterdName(tempName);
+    setEnterdWallet(tempWallet);
+    setEnterdEmail(tempEmail);
     setIsEditing(false);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    tempname = enterdName;
-    tempwallet = enterdWallet;
-    tempemail = enterdEmail;
+    setTempName(enterdName);
+    setTempWallet(enterdWallet);
+    setTempEmail(enterdEmail);
     setIsEditing(false);
   };
 
+  const ctx = useContext(ModifyContext);
+
   const deleteHandler = () => {
-    console.log(props.name, props.id);
+    ctx.onDelete(props.id);
   };
 
   return (
     <div>
       {!isEditing && (
-        <Card className="account-item">
-          <div className="account-item__description">{enterdName}</div>
+        <Card className={classes["account-item"]}>
+          <div>{enterdName}</div>
           <div>{enterdWallet}</div>
           <div>{enterdEmail}</div>
-          <div className="account__actions">
-            <button type="button" onClick={updateHandler}>
-              Update
-            </button>
-            <button type="button" onClick={deleteHandler}>
-              Delete
-            </button>
+          <div className={classes["account__actions"]}>
+            <Button onClick={updateHandler}>Update</Button>
+            <Button onClick={deleteHandler}>Delete</Button>
           </div>
         </Card>
       )}
       {isEditing && (
-        <Card className="account-item">
+        <Card className={classes["account-item"]}>
           <form onSubmit={submitHandler}>
-            <div className="account__controls">
-              <div className="account__control">
+            <div className={classes["account__controls"]}>
+              <div className={classes["account__control"]}>
                 <input
                   type="text"
                   value={enterdName}
                   onChange={nameChangeHandler}
                 ></input>
               </div>
-              <div className="account__control">
+              <div className={classes["account__control"]}>
                 <input
                   type="text"
                   value={enterdWallet}
                   onChange={walletChangeHandler}
                 ></input>
               </div>
-              <div className="account__control">
+              <div className={classes["account__control"]}>
                 <input
                   type="text"
                   value={enterdEmail}
@@ -91,17 +88,15 @@ function AccountInfo(props) {
                 ></input>
               </div>
             </div>
-            <div className="account__actions">
-              <button type="button" onClick={cancelHandler}>
-                Cancel
-              </button>
-              <button type="submit">Update</button>
+            <div className={classes["account__actions"]}>
+              <Button onClick={cancelHandler}>Cancel</Button>
+              <Button type="submit">Update</Button>
             </div>
           </form>
         </Card>
       )}
     </div>
   );
-}
+};
 
 export default AccountInfo;
